@@ -13,14 +13,13 @@ use Generated\Shared\Transfer\MoneyValueTransfer;
 use Generated\Shared\Transfer\PriceProductDimensionTransfer;
 use Generated\Shared\Transfer\PriceProductTransfer;
 use Generated\Shared\Transfer\ProductConfigurationInstanceTransfer;
-use Generated\Shared\Transfer\RestCartItemProductConfigurationInstanceAttributesTransfer;
 use Generated\Shared\Transfer\RestCurrencyTransfer;
 use Generated\Shared\Transfer\RestProductConfigurationPriceAttributesTransfer;
 use Generated\Shared\Transfer\RestProductPriceVolumesAttributesTransfer;
 use Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Dependency\Service\ProductConfigurationsPriceProductVolumesRestApiToProductConfigurationServiceInterface;
 use Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Dependency\Service\ProductConfigurationsPriceProductVolumesRestApiToUtilEncodingServiceInterface;
 
-class RestCartItemProductConfigurationPriceProductVolumeMapper implements RestCartItemProductConfigurationPriceProductVolumeMapperInterface
+class RestProductConfigurationPriceProductVolumeMapper implements RestProductConfigurationPriceProductVolumeMapperInterface
 {
     /**
      * @var \Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Dependency\Service\ProductConfigurationsPriceProductVolumesRestApiToProductConfigurationServiceInterface
@@ -45,16 +44,16 @@ class RestCartItemProductConfigurationPriceProductVolumeMapper implements RestCa
     }
 
     /**
-     * @param \Generated\Shared\Transfer\RestCartItemProductConfigurationInstanceAttributesTransfer $restCartItemProductConfigurationInstanceAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestProductConfigurationPriceAttributesTransfer[] $restProductConfigurationPriceAttributesTransfers
      * @param \Generated\Shared\Transfer\ProductConfigurationInstanceTransfer $productConfigurationInstanceTransfer
      *
      * @return \Generated\Shared\Transfer\ProductConfigurationInstanceTransfer
      */
-    public function mapRestCartItemProductConfigurationInstanceAttributesToProductConfigurationInstance(
-        RestCartItemProductConfigurationInstanceAttributesTransfer $restCartItemProductConfigurationInstanceAttributesTransfer,
+    public function mapRestProductConfigurationPriceAttributesToProductConfigurationInstance(
+        array $restProductConfigurationPriceAttributesTransfers,
         ProductConfigurationInstanceTransfer $productConfigurationInstanceTransfer
     ): ProductConfigurationInstanceTransfer {
-        foreach ($restCartItemProductConfigurationInstanceAttributesTransfer->getPrices() as $restProductConfigurationPriceAttributesTransfer) {
+        foreach ($restProductConfigurationPriceAttributesTransfers as $restProductConfigurationPriceAttributesTransfer) {
             if ($restProductConfigurationPriceAttributesTransfer->getVolumePrices()->count() === 0) {
                 continue;
             }

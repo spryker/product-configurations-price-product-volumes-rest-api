@@ -10,13 +10,13 @@ namespace SprykerTest\Glue\ProductConfigurationsPriceProductVolumesRestApi\Plugi
 use Codeception\Test\Unit;
 use Generated\Shared\DataBuilder\MoneyValueBuilder;
 use Generated\Shared\DataBuilder\ProductConfigurationInstanceBuilder;
-use Generated\Shared\DataBuilder\RestCartItemProductConfigurationInstanceAttributesBuilder;
+use Generated\Shared\DataBuilder\RestProductConfigurationPriceAttributesBuilder;
 use Generated\Shared\Transfer\CurrencyTransfer;
 use Generated\Shared\Transfer\MoneyValueTransfer;
 use Generated\Shared\Transfer\PriceProductTransfer;
 use Generated\Shared\Transfer\RestCurrencyTransfer;
 use Generated\Shared\Transfer\RestProductConfigurationPriceAttributesTransfer;
-use Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Plugin\ProductConfigurationsRestApi\ProductConfigurationVolumePriceRestCartItemProductConfigurationMapperPlugin;
+use Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Plugin\ProductConfigurationsRestApi\ProductConfigurationVolumePriceRestProductConfigurationPriceMapperPlugin;
 
 /**
  * Auto-generated group annotations
@@ -25,10 +25,10 @@ use Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Plugin\ProductC
  * @group Glue
  * @group ProductConfigurationsPriceProductVolumesRestApi
  * @group Plugin
- * @group ProductConfigurationVolumePriceRestCartItemProductConfigurationMapperPluginTest
+ * @group ProductConfigurationVolumePriceRestProductConfigurationPriceMapperPluginTest
  * Add your own group annotations below this line
  */
-class ProductConfigurationVolumePriceRestCartItemProductConfigurationMapperPluginTest extends Unit
+class ProductConfigurationVolumePriceRestProductConfigurationPriceMapperPluginTest extends Unit
 {
     protected const PRICE_TYPE_NAME = 'priceTypeName';
     protected const NET_AMOUNT = 111;
@@ -68,27 +68,24 @@ class ProductConfigurationVolumePriceRestCartItemProductConfigurationMapperPlugi
             ])
             ->build();
 
-        $restCartItemProductConfigurationInstanceAttributesTransfer = (new RestCartItemProductConfigurationInstanceAttributesBuilder())
-            ->withPrice([
+        $restProductConfigurationPriceAttributesTransfer = (new RestProductConfigurationPriceAttributesBuilder([
                 RestProductConfigurationPriceAttributesTransfer::PRICE_TYPE_NAME => static::PRICE_TYPE_NAME,
                 RestProductConfigurationPriceAttributesTransfer::NET_AMOUNT => static::NET_AMOUNT,
                 RestProductConfigurationPriceAttributesTransfer::GROSS_AMOUNT => static::GROSS_AMOUNT,
                 RestProductConfigurationPriceAttributesTransfer::CURRENCY => [RestCurrencyTransfer::NAME => static::CURRENCY_NAME],
-            ])
-            ->build();
+            ]))->build();
 
-        $restProductConfigurationPriceRestCartItemProductConfigurationMapperPlugin = new ProductConfigurationVolumePriceRestCartItemProductConfigurationMapperPlugin();
+        $productConfigurationVolumePriceRestProductConfigurationPriceMapperPlugin = new ProductConfigurationVolumePriceRestProductConfigurationPriceMapperPlugin();
 
         // Act
-        $restCartItemProductConfigurationInstanceAttributesTransfer = $restProductConfigurationPriceRestCartItemProductConfigurationMapperPlugin->map(
+        $restProductConfigurationPriceAttributesTransfers = $productConfigurationVolumePriceRestProductConfigurationPriceMapperPlugin->map(
             $productConfigurationInstanceTransfer,
-            $restCartItemProductConfigurationInstanceAttributesTransfer
+            [$restProductConfigurationPriceAttributesTransfer]
         );
 
         // Assert
-        $this->assertCount(1, $restCartItemProductConfigurationInstanceAttributesTransfer->getPrices());
+        $this->assertCount(1, $restProductConfigurationPriceAttributesTransfers);
         /** @var \Generated\Shared\Transfer\RestProductConfigurationPriceAttributesTransfer $restProductConfigurationPriceAttributesTransfer */
-        $restProductConfigurationPriceAttributesTransfer = $restCartItemProductConfigurationInstanceAttributesTransfer->getPrices()->offsetGet(0);
-        $this->assertCount(2, $restProductConfigurationPriceAttributesTransfer->getVolumePrices());
+        $this->assertCount(2, $restProductConfigurationPriceAttributesTransfers[0]->getVolumePrices());
     }
 }

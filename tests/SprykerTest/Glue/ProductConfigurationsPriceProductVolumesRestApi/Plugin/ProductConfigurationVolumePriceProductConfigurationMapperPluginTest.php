@@ -11,17 +11,15 @@ use Codeception\Test\Unit;
 use Generated\Shared\DataBuilder\CurrencyBuilder;
 use Generated\Shared\DataBuilder\PriceProductBuilder;
 use Generated\Shared\DataBuilder\ProductConfigurationInstanceBuilder;
-use Generated\Shared\DataBuilder\RestCartItemProductConfigurationInstanceAttributesBuilder;
 use Generated\Shared\DataBuilder\RestCurrencyBuilder;
 use Generated\Shared\DataBuilder\RestProductConfigurationPriceAttributesBuilder;
 use Generated\Shared\Transfer\CurrencyTransfer;
 use Generated\Shared\Transfer\MoneyValueTransfer;
 use Generated\Shared\Transfer\PriceProductTransfer;
 use Generated\Shared\Transfer\ProductConfigurationInstanceTransfer;
-use Generated\Shared\Transfer\RestCartItemProductConfigurationInstanceAttributesTransfer;
 use Generated\Shared\Transfer\RestCurrencyTransfer;
 use Generated\Shared\Transfer\RestProductConfigurationPriceAttributesTransfer;
-use Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Plugin\ProductConfigurationsRestApi\ProductConfigurationVolumePriceCartItemProductConfigurationMapperPlugin;
+use Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Plugin\ProductConfigurationsRestApi\ProductConfigurationVolumePriceProductConfigurationPriceMapperPlugin;
 
 /**
  * Auto-generated group annotations
@@ -30,10 +28,10 @@ use Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Plugin\ProductC
  * @group Glue
  * @group ProductConfigurationsPriceProductVolumesRestApi
  * @group Plugin
- * @group ProductConfigurationVolumePriceCartItemProductConfigurationMapperPluginTest
+ * @group ProductConfigurationVolumePriceProductConfigurationMapperPluginTest
  * Add your own group annotations below this line
  */
-class ProductConfigurationVolumePriceCartItemProductConfigurationMapperPluginTest extends Unit
+class ProductConfigurationVolumePriceProductConfigurationMapperPluginTest extends Unit
 {
     protected const PRICE_TYPE_NAME = 'priceTypeName';
     protected const CURRENCY_NAME = 'EUR';
@@ -54,10 +52,6 @@ class ProductConfigurationVolumePriceCartItemProductConfigurationMapperPluginTes
             ->withAnotherVolumePrice()
             ->build();
 
-        $restCartItemProductConfigurationInstanceAttributesTransfer = (new RestCartItemProductConfigurationInstanceAttributesBuilder([
-            RestCartItemProductConfigurationInstanceAttributesTransfer::PRICES => [$restProductConfigurationPriceAttributesTransfer->toArray()],
-        ]))->build();
-
         $priceProductTransfer = (new PriceProductBuilder([PriceProductTransfer::PRICE_TYPE_NAME => static::PRICE_TYPE_NAME]))
             ->withMoneyValue([
                 MoneyValueTransfer::CURRENCY => (new CurrencyBuilder([CurrencyTransfer::NAME => static::CURRENCY_NAME]))->build()->toArray(),
@@ -68,11 +62,11 @@ class ProductConfigurationVolumePriceCartItemProductConfigurationMapperPluginTes
             ProductConfigurationInstanceTransfer::PRICES => [$priceProductTransfer->toArray()],
         ]))->build();
 
-        $restProductConfigurationPriceAttributesMapperPlugin = new ProductConfigurationVolumePriceCartItemProductConfigurationMapperPlugin();
+        $productConfigurationVolumePriceProductConfigurationPriceMapperPlugin = new ProductConfigurationVolumePriceProductConfigurationPriceMapperPlugin();
 
         // Act
-        $productConfigurationInstanceTransfer = $restProductConfigurationPriceAttributesMapperPlugin->map(
-            $restCartItemProductConfigurationInstanceAttributesTransfer,
+        $productConfigurationInstanceTransfer = $productConfigurationVolumePriceProductConfigurationPriceMapperPlugin->map(
+            [$restProductConfigurationPriceAttributesTransfer],
             $productConfigurationInstanceTransfer
         );
 

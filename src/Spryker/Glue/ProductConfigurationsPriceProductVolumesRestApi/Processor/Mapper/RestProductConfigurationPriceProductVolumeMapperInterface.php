@@ -8,18 +8,17 @@
 namespace Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Processor\Mapper;
 
 use Generated\Shared\Transfer\ProductConfigurationInstanceTransfer;
-use Generated\Shared\Transfer\RestCartItemProductConfigurationInstanceAttributesTransfer;
 
-interface RestCartItemProductConfigurationPriceProductVolumeMapperInterface
+interface RestProductConfigurationPriceProductVolumeMapperInterface
 {
     /**
-     * @param \Generated\Shared\Transfer\RestCartItemProductConfigurationInstanceAttributesTransfer $restCartItemProductConfigurationInstanceAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestProductConfigurationPriceAttributesTransfer[] $restProductConfigurationPriceAttributesTransfers
      * @param \Generated\Shared\Transfer\ProductConfigurationInstanceTransfer $productConfigurationInstanceTransfer
      *
      * @return \Generated\Shared\Transfer\ProductConfigurationInstanceTransfer
      */
-    public function mapRestCartItemProductConfigurationInstanceAttributesToProductConfigurationInstance(
-        RestCartItemProductConfigurationInstanceAttributesTransfer $restCartItemProductConfigurationInstanceAttributesTransfer,
+    public function mapRestProductConfigurationPriceAttributesToProductConfigurationInstance(
+        array $restProductConfigurationPriceAttributesTransfers,
         ProductConfigurationInstanceTransfer $productConfigurationInstanceTransfer
     ): ProductConfigurationInstanceTransfer;
 }

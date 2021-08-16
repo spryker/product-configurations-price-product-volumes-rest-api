@@ -8,14 +8,13 @@
 namespace Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\Plugin\ProductConfigurationsRestApi;
 
 use Generated\Shared\Transfer\ProductConfigurationInstanceTransfer;
-use Generated\Shared\Transfer\RestCartItemProductConfigurationInstanceAttributesTransfer;
 use Spryker\Glue\Kernel\AbstractPlugin;
-use Spryker\Glue\ProductConfigurationsRestApiExtension\Dependency\Plugin\CartItemProductConfigurationMapperPluginInterface;
+use Spryker\Glue\ProductConfigurationsRestApiExtension\Dependency\Plugin\ProductConfigurationPriceMapperPluginInterface;
 
 /**
  * @method \Spryker\Glue\ProductConfigurationsPriceProductVolumesRestApi\ProductConfigurationsPriceProductVolumesRestApiFactory getFactory()
  */
-class ProductConfigurationVolumePriceCartItemProductConfigurationMapperPlugin extends AbstractPlugin implements CartItemProductConfigurationMapperPluginInterface
+class ProductConfigurationVolumePriceProductConfigurationPriceMapperPlugin extends AbstractPlugin implements ProductConfigurationPriceMapperPluginInterface
 {
     /**
      * {@inheritDoc}
@@ -23,19 +22,19 @@ class ProductConfigurationVolumePriceCartItemProductConfigurationMapperPlugin ex
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\RestCartItemProductConfigurationInstanceAttributesTransfer $restCartItemProductConfigurationInstanceAttributesTransfer
+     * @param \Generated\Shared\Transfer\RestProductConfigurationPriceAttributesTransfer[] $restProductConfigurationPriceAttributesTransfers
      * @param \Generated\Shared\Transfer\ProductConfigurationInstanceTransfer $productConfigurationInstanceTransfer
      *
      * @return \Generated\Shared\Transfer\ProductConfigurationInstanceTransfer
      */
     public function map(
-        RestCartItemProductConfigurationInstanceAttributesTransfer $restCartItemProductConfigurationInstanceAttributesTransfer,
+        array $restProductConfigurationPriceAttributesTransfers,
         ProductConfigurationInstanceTransfer $productConfigurationInstanceTransfer
     ): ProductConfigurationInstanceTransfer {
         return $this->getFactory()
-            ->createRestCartItemProductConfigurationPriceProductVolumeMapper()
-            ->mapRestCartItemProductConfigurationInstanceAttributesToProductConfigurationInstance(
-                $restCartItemProductConfigurationInstanceAttributesTransfer,
+            ->createRestProductConfigurationPriceProductVolumeMapper()
+            ->mapRestProductConfigurationPriceAttributesToProductConfigurationInstance(
+                $restProductConfigurationPriceAttributesTransfers,
                 $productConfigurationInstanceTransfer
             );
     }
